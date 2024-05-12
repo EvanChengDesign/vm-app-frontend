@@ -8,7 +8,7 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
-      const result = await axios('http://localhost:3000/api/v1/food');
+      const result = await axios('http://localhost:3000/api/v1/');
       setFood(result.data);
     }
     fetchData();
