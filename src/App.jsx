@@ -1,30 +1,25 @@
-import { useState, useEffect } from 'react'
-import './App.css'
+import React from 'react';
 
-import axios from 'axios';
+// Import Styling
+import './CSS/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+// Component Imports
+import AuthForm from './Components/AuthForm';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Dashboard from './Components/Dashboard';
 
 function App() {
-  const [food, setFood] = useState([])
-
-  useEffect(() => {
-    async function fetchData() {
-      const result = await axios('http://localhost:3000/api/v1/');
-      setFood(result.data);
-    }
-    fetchData();
-  }, []);
-
   return (
-    <>
-      <ul>
-        {
-          food.map((item, index) => (
-            <li key={index}>{item.name}</li>
-          ))
-        }
-      </ul>
-    </>
-  )
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<AuthForm />} />
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
