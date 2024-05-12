@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Modal, Form, DropdownButton, Dropdown, Card, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+const VITE_SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 const Directory = () => {
   const [showModal, setShowModal] = useState(false);
@@ -12,7 +13,23 @@ const Directory = () => {
   const handleShowModal = (type) => {
     setModalType(type);
     setShowModal(true);
-    setFormData({});
+    initializeFormData(type);
+  };
+
+  const initializeFormData = (type) => {
+    switch (type) {
+      case 'vehicles':
+        setFormData({ type: 'sedan' });
+        break;
+      case 'inventory':
+        setFormData({ type: 'engine' });
+        break;
+      case 'maintenance':
+        setFormData({});
+        break;
+      default:
+        setFormData({});
+    }
   };
 
   const handleCloseModal = () => setShowModal(false);
@@ -27,7 +44,7 @@ const Directory = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let route = `/api/v1/${modalType}`;
+    let route = `${VITE_SERVER_URL}/api/v1/${modalType}`;
     if (routeType === 'getOne' || routeType === 'update' || routeType === 'delete') {
       route += `/${formData.id}`;
     }
@@ -40,6 +57,8 @@ const Directory = () => {
           response = await axios.get(route);
           break;
         case 'create':
+          console.log(route);
+          console.log(formData)
           response = await axios.post(route, formData);
           break;
         case 'update':
@@ -111,11 +130,11 @@ const Directory = () => {
                 <Form.Group controlId="formType">
                   <Form.Label>Type</Form.Label>
                   <Form.Control as="select" name="type" onChange={handleChange}>
-                    <option>sedan</option>
-                    <option>truck</option>
-                    <option>van</option>
-                    <option>minivan</option>
-                    <option>hybrid</option>
+                    <option value="sedan">sedan</option>
+                    <option value="truck">truck</option>
+                    <option value="van">van</option>
+                    <option value="minivan">minivan</option>
+                    <option value="hybrid">hybrid</option>
                   </Form.Control>
                 </Form.Group>
               </>
@@ -133,15 +152,15 @@ const Directory = () => {
                 <Form.Group controlId="formType">
                   <Form.Label>Type</Form.Label>
                   <Form.Control as="select" name="type" onChange={handleChange}>
-                    <option>engine</option>
-                    <option>suspension</option>
-                    <option>transmission</option>
-                    <option>exterior</option>
-                    <option>interior</option>
-                    <option>wheels/tires/brakes</option>
-                    <option>fluids/filters</option>
-                    <option>exhaust</option>
-                    <option>electronics</option>
+                    <option value="engine">Engine</option>
+                    <option value="suspension">Suspension</option>
+                    <option value="transmission">Transmission</option>
+                    <option value="exterior">Exterior</option>
+                    <option value="interior">Interior</option>
+                    <option value="wheels/tires/brakes">Wheels/Tires/Brakes</option>
+                    <option value="fluids/filters">Fluids/Filters</option>
+                    <option value="exhaust">Exhaust</option>
+                    <option value="electronics">Electronics</option>
                   </Form.Control>
                 </Form.Group>
               </>
