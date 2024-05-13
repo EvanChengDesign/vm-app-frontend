@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Modal, Form, DropdownButton, Dropdown, Card, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
-import token from './AuthForm'
+const token = localStorage.getItem('jwtToken');
+
 const VITE_SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 const AuthToken = 'Basic ' + token;

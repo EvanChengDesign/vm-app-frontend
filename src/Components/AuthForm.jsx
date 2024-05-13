@@ -1,27 +1,22 @@
+// src/components/AuthForm.jsx
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Container, Row, Col, Card, Form, Button, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-
-const VITE_SERVER_URL = import.meta.env.VITE_SERVER_URL;
+import { signinUser, signupUser } from '../Components/apiService';
 
 function AuthForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('user');
+  const [role, setRole] = useState('customer');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post(`${VITE_SERVER_URL}/auth/signin`, {
-        username,
-        password,
-      });
-      if (response.status === 200) {
-        alert('Login successful');
-        navigate('/dashboard');
-      }
+      const data = await signinUser(username, password);
+      alert('Login successful');
+      localStorage.setItem('jwtToken', data.token);
+      navigate('/dashboard');
     } catch (error) {
       alert('Login failed: ' + error.message);
     }
@@ -29,14 +24,9 @@ function AuthForm() {
 
   const handleSignup = async () => {
     try {
-      const response = await axios.post(`${VITE_SERVER_URL}/auth/signup`, {
-        username,
-        password,
-        role,
-      });
-      if (response.status === 201) {
-        setShowSuccessModal(true);
-      }
+      const data = await signupUser(username, password, role);
+      setShowSuccessModal(true);
+      localStorage.setItem('jwtToken', data.token);
     } catch (error) {
       alert('Signup failed: ' + error.message);
     }
@@ -82,7 +72,7 @@ function AuthForm() {
                   onChange={(e) => setRole(e.target.value)}
                   required
                 >
-                  <option value="user">User</option>
+                  <option value="customer">Customer</option>
                   <option value="admin">Admin</option>
                   <option value="mechanic">Mechanic</option>
                 </Form.Control>
