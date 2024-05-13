@@ -65,43 +65,47 @@ const Directory = () => {
       let response;
       switch (routeType) {
         case 'getAll':
-          response = await axios.get(url, {
-            headers: {
-              authorization: AuthToken
-            }
-          });
-          break;
+            response = await axios.get(url, {
+                headers: {
+                    authorization: `Bearer ${AuthToken}`
+                }
+            });
+            break;
         case 'getOne':
-          response = await axios.get(url, formData, {
-            headers: {
-              authorization: AuthToken
-            }
-          });
-          break;
+            response = await axios.get(url, {
+                headers: {
+                    authorization: `Bearer ${AuthToken}`
+                }
+            });
+            break;
         case 'create':
-          response = await axios.post(url, formData, {}, {
-            headers: {
-              authorization: AuthToken
-            }
-          });
-          break;
+            console.log(url);
+            console.log(formData);
+            response = await axios.post(url, formData, {
+                headers: {
+                    authorization: `Bearer ${AuthToken}`
+                }
+            });
+            break;
         case 'update':
-          response = await axios.put(url, formData, {}, {
-            headers: {
-              authorization: AuthToken
-            }
-          });
-          break;
+            response = await axios.put(url, formData, {
+                headers: {
+                    authorization: `Bearer ${AuthToken}`
+                }
+            });
+            break;
         case 'delete':
-          response = await axios.delete(url, {
-            headers: {
-              authorization: AuthToken
-            }
-          });
-          break;
+            console.log('deleting with token', AuthToken);
+            response = await axios.delete(url, {
+                headers: {
+                    authorization: `Bearer ${AuthToken}`
+                },
+                data: formData
+            });
+            break;
         default:
-          throw new Error('Invalid route type');
-      }
+            throw new Error('Invalid route type');
+    }
 
       if (response.data.success) {
         setResponseData(Array.isArray(response.data.data) ? response.data.data : [response.data.data]);
