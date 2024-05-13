@@ -1,0 +1,13 @@
+current front end status:
+
+23:23 may 12
+Signup and login both work
+
+
+Admin cant update or delete inventory 
+
+Mechanic cannot get, add/update vehicle 
+
+can't create 
+
+However, get request works when updating data via the database 
