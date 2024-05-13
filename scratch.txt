@@ -11,3 +11,10 @@ Mechanic cannot get, add/update vehicle
 can't create 
 
 However, get request works when updating data via the database 
+
+11:24 may 13
+
+Thunderclient signup/signin works
+api/v2/vehicles  & vehicles/ID GET worksv
+api/v2/vehicles/ID delete works
+http://localhost:3000/api/v2/vehicles POST works (create)

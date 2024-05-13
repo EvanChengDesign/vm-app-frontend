@@ -177,7 +177,7 @@ const Directory = () => {
                     <option value="sedan">Sedan</option>
                     <option value="suv">SUV</option>
                     <option value="truck">Truck</option>
-                    <option value="motorcycle">Motorcycle</option>
+                    <option value="motorcycle">Van</option>
                   </Form.Control>
                 </Form.Group>
               </>
@@ -187,14 +187,19 @@ const Directory = () => {
                 <Form.Group controlId="formType">
                   <Form.Label>Type</Form.Label>
                   <Form.Control as="select" name="type" onChange={handleChange}>
-                    <option value="engine">Engine</option>
-                    <option value="tire">Tire</option>
-                    <option value="brake">Brake</option>
+                    <option value="engine">engine</option>
+                    <option value="suspension">suspension</option>
+                    <option value="transmission">transmission</option>
+                    <option value="exterior">exterior</option>
+                    <option value="interior">interior</option>
+                    <option value="wheels/tires/brakes">wheels/tires/brakes</option>
+                    <option value="fluids/filters">fluids/filters</option>
+                    <option value="electronics">electronics</option>
                   </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="formBrand">
-                  <Form.Label>Brand</Form.Label>
-                  <Form.Control type="text" name="brand" onChange={handleChange} />
+                  <Form.Label>Cost</Form.Label>
+                  <Form.Control type="number" name="Cost" onChange={handleChange} />
                 </Form.Group>
                 <Form.Group controlId="formQuantity">
                   <Form.Label>Quantity</Form.Label>
@@ -217,7 +222,7 @@ const Directory = () => {
                   <Form.Control type="text" name="description" onChange={handleChange} />
                 </Form.Group>
                 <Form.Group controlId="formCost">
-                  <Form.Label>Cost</Form.Label>
+                  <Form.Label>Mechanic ID</Form.Label>
                   <Form.Control type="number" name="cost" onChange={handleChange} />
                 </Form.Group>
               </>
