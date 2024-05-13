@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Modal, Form, DropdownButton, Dropdown, Card, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import token from './AuthForm'
 const VITE_SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
+const AuthToken = 'Basic ' + token;
 
 const Directory = () => {
   const [showModal, setShowModal] = useState(false);
@@ -44,28 +47,50 @@ const Directory = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let route = `${VITE_SERVER_URL}/api/v1/${modalType}`;
+    let url = `${VITE_SERVER_URL}/api/v2/${modalType}`;
     if (routeType === 'getOne' || routeType === 'update' || routeType === 'delete') {
-      route += `/${formData.id}`;
+      url += `/${formData.id}`;
     }
 
     try {
       let response;
       switch (routeType) {
         case 'getAll':
+          response = await axios.get(url, {
+            headers: {
+              authorization: AuthToken
+            }
+          });
+          break;
         case 'getOne':
-          response = await axios.get(route);
+          response = await axios.get(url, formData, {
+            headers: {
+              authorization: AuthToken
+            }
+          });
           break;
         case 'create':
-          console.log(route);
+          console.log(url);
           console.log(formData)
-          response = await axios.post(route, formData);
+          response = await axios.post(url, formData, {}, {
+            headers: {
+              authorization: AuthToken
+            }
+          });
           break;
         case 'update':
-          response = await axios.put(route, formData);
+          response = await axios.put(url, formData, {}, {
+            headers: {
+              authorization: AuthToken
+            }
+          });
           break;
         case 'delete':
-          response = await axios.delete(route);
+          response = await axios.delete(url, {}, {
+            headers: {
+              authorization: AuthToken
+            }
+          });
           break;
         default:
           throw new Error('Invalid route type');
