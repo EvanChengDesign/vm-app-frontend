@@ -18,3 +18,29 @@ body {
 .btn {
   width: 100%;
 }
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.button-container .btn {
+  margin-right: 10px; /* Adds margin between buttons */
+}
+
+.button-container .btn:last-child {
+  margin-right: 0; /* Removes margin from the last button */
+}
+
+
+.title-container {
+  display: flex;
+  justify-content: center; /* Centers the title-container div horizontally */
+  align-items: center; /* Centers the content vertically */
+  margin-bottom: 20px; /* Adds some spacing below the title */
+}
+
+.title {
+  text-align: center; /* Centers the text within the title div */
+}
