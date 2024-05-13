@@ -15,6 +15,7 @@ function AuthForm() {
     try {
       const data = await signinUser(username, password);
       alert('Login successful');
+      console.log('logging token as', data.token);
       localStorage.setItem('jwtToken', data.token);
       navigate('/dashboard');
     } catch (error) {

@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Modal, Form, DropdownButton, Dropdown, Card, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
-const token = localStorage.getItem('jwtToken');
 
 const VITE_SERVER_URL = import.meta.env.VITE_SERVER_URL;
-
-const AuthToken = 'Basic ' + token;
 
 const Directory = () => {
   const [showModal, setShowModal] = useState(false);
@@ -53,6 +50,9 @@ const Directory = () => {
       url += `/${formData.id}`;
     }
 
+    const token = localStorage.getItem('jwtToken');
+    const AuthToken = 'Basic ' + token;
+
     try {
       let response;
       switch (routeType) {
@@ -87,7 +87,8 @@ const Directory = () => {
           });
           break;
         case 'delete':
-          response = await axios.delete(url, {}, {
+          console.log('deleting with token', AuthToken)
+          response = await axios.delete(url, {
             headers: {
               authorization: AuthToken
             }
